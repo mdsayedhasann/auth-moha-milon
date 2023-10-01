@@ -1,18 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "./providers/AuthProvider";
 
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
 
-    const handleRegister = e => {
-        e.preventDefault()
-        const name = e.target.name.value
-        const email = e.target.email.value
-        const password = e.target.password.value
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
 
-        console.log(name, email, password);
-    }
-    return (
-        <div className="flex flex-col items-center ">
+    console.log(name, email, password);
+    // Create User
+
+    createUser(email, password)
+    .then(result => {
+      console.log(result.user);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+  };
+  return (
+    <div className="flex flex-col items-center ">
       <div className="">
         <div className="text-center">
           <h1 className="text-5xl font-bold py-8">Register now!</h1>
@@ -62,13 +73,15 @@ const Register = () => {
             </form>
             <div className="text-center">
               <p>Already have an account</p>
-              <Link to='/login'><button className="text-center text-blue-600">Login</button></Link>
+              <Link to="/login">
+                <button className="text-center text-blue-600">Login</button>
+              </Link>
             </div>
           </div>
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default Register;
