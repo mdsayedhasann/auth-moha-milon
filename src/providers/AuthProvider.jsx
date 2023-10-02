@@ -17,7 +17,13 @@ const AuthProvider = ({children}) => {
     const signInUser = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
-
+    
+    useEffect(() => {
+        onAuthStateChanged(auth, currentUser => {
+            setUser(currentUser)
+            console.log( 'Observing current user inside UseEffect of Authprovider ' , currentUser );
+        })
+    }, [])
 
     const authInfo = {user , createUser, signInUser}
     return (
