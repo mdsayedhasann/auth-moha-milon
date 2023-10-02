@@ -7,7 +7,7 @@ const Home = () => {
         <div>
             <h1>I am Home</h1>
            {
-               user.email
+               user?.email
            }
 
         </div>
